@@ -1,7 +1,13 @@
 import { AdressInputContainer } from './styles'
 
-export function AdressInput() {
+interface AdressInputProps {
+  placeholder: string;
+}
+
+export function AdressInput({ placeholder }:AdressInputProps) {
   return (
-    <AdressInputContainer />
+    <AdressInputContainer>
+      <input type="text" placeholder={placeholder} />
+    </AdressInputContainer>
   )
 }
