@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { mixins } from '../../styles/mixins'
+import { NavLink } from 'react-router-dom'
 
 export const HeaderContainer = styled.header`
   display:flex;
@@ -35,7 +36,7 @@ export const LocationContainer = styled.div`
   }
 `
 
-export const ShoppingCartContainer = styled.button`
+export const ShoppingCartNavLinkContainer = styled(NavLink)`
   display: flex;
   align-items: center;
   justify-content: center;

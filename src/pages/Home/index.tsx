@@ -1,4 +1,3 @@
-import { Header } from '../../components/Header'
 import coffeDeliveryImage from '../../assets/outdoor-image.svg'
 import heroBackground from '/bg.svg'
 
@@ -15,7 +14,6 @@ export function Home() {
 
   return (
     <>
-      <Header />
       <OutdoorContainer>
         <div>
           <TitleContainer>
