@@ -1,9 +1,12 @@
-import { MapPin } from 'phosphor-react'
+import { Bank, CreditCard, CurrencyDollar, MapPin, Money } from 'phosphor-react'
 import { TextInput } from '../../Form/TextInput'
 import {
-  AdressFormContainer, AdressInfoContainer, AdressTitleContainer,
-  CheckoutFormContainer, UserAdressContainer, UserPaymentMethodContainer,
+  CheckoutFormContainer, UserAdressContainer, AdressFormContainer,
+  AdressInfoContainer, AdressTitleContainer, UserPaymentMethodContainer,
+  PaymentMethodInfoContainer, PaymentMethodTitleContainer,
+  PaymentMethodActionContainer,
 } from './styles'
+import { Button } from '../../Form/Button'
 
 export function Checkout() {
   return (
@@ -33,7 +36,37 @@ export function Checkout() {
             </form>
           </AdressFormContainer>
         </UserAdressContainer>
-        <UserPaymentMethodContainer />
+        <UserPaymentMethodContainer>
+          <PaymentMethodInfoContainer>
+            <div>
+              <CurrencyDollar size={22} />
+            </div>
+
+            <PaymentMethodTitleContainer>
+              <h2>Pagamento</h2>
+              <span>
+                O pagemento é feito na entrega. Escolha a forma que deseja pagar
+              </span>
+            </PaymentMethodTitleContainer>
+          </PaymentMethodInfoContainer>
+          <PaymentMethodActionContainer>
+            <Button>
+              <CreditCard />
+              <span>CARTÃO DE CRÉDITO</span>
+            </Button>
+            <Button>
+              <Bank />
+              <span>CARTÃO DE DÉBITO</span>
+            </Button>
+            <Button>
+              <Money />
+              <span>DINHEIRO</span>
+            </Button>
+          </PaymentMethodActionContainer>
+        </UserPaymentMethodContainer>
+      </div>
+      <div>
+        <h1>Cafés selecionados</h1>
       </div>
     </CheckoutFormContainer>
   )
