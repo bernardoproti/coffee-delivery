@@ -8,6 +8,8 @@ export const OrderContainer = styled.div`
 
   height: 5rem;
   padding: .5rem .25rem;
+  margin-bottom: 3rem;
+
   position: relative;
 
   &::after {
@@ -22,6 +24,10 @@ export const OrderContainer = styled.div`
   & div:first-child { 
     display: flex;
   }
+
+  /* & + & {
+    margin-top: 3rem;
+  } */
 `
 
 export const OrderInfoContainer = styled.div`

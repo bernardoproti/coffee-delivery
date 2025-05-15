@@ -15,6 +15,8 @@ export const ButtonContainer = styled.label`
   
   border-radius: 6px;
 
+  cursor: pointer;
+
   & span {
     ${mixins.fonts.buttonM};
     color: ${props => props.theme['base-text']};

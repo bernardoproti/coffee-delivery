@@ -5,9 +5,11 @@ import {
   AdressInfoContainer, AdressTitleContainer, UserPaymentMethodContainer,
   PaymentMethodInfoContainer, PaymentMethodTitleContainer,
   PaymentMethodActionContainer, UserOrderSummaryContainer,
+  UserOrderSummaryPrice, CheckoutButtonContainer,
 } from './styles'
 import { Button } from '../../Form/Button'
 import { Order } from './components/Order'
+import { NavLink } from 'react-router-dom'
 
 export function Checkout() {
   return (
@@ -70,6 +72,29 @@ export function Checkout() {
         <h1>Cafés selecionados</h1>
         <UserOrderSummaryContainer>
           <Order />
+          <Order />
+          <Order />
+
+          <UserOrderSummaryPrice>
+            <div>
+              <span>Total de itens</span>
+              <span>R$ 29,70</span>
+            </div>
+            <div>
+              <span>Entrega</span>
+              <span>R$ 3,50</span>
+            </div>
+            <div>
+              <span>Total</span>
+              <span>R$ 33,20</span>
+            </div>
+          </UserOrderSummaryPrice>
+
+          <NavLink to="/sucess">
+            <CheckoutButtonContainer>
+              CONFIRMAR PEDIDO
+            </CheckoutButtonContainer>
+          </NavLink>
         </UserOrderSummaryContainer>
       </div>
     </CheckoutFormContainer>

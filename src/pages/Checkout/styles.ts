@@ -119,3 +119,36 @@ export const UserOrderSummaryContainer = styled(BaseCard)`
   width: 28rem;
   border-radius: 6px 44px 6px 44px;
 `
+
+export const UserOrderSummaryPrice = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+  
+  & div {
+    display: flex;
+    justify-content: space-between;
+    ${mixins.fonts.textS};
+    color: ${props => props.theme['base-text']};
+  }
+
+  & div:last-child {
+    ${mixins.fonts.textL};
+    font-weight: bold;
+    color: ${props => props.theme['base-subtitle']};
+  }
+`
+
+export const CheckoutButtonContainer = styled.button`
+  width: 100%;
+  height: 2.875rem;
+
+  padding: .75rem .5rem;
+  margin-top: 2rem;
+
+  border-radius: 6px;
+
+  ${mixins.fonts.buttonG};
+  color: ${props => props.theme.white};
+  background: ${props => props.theme.yellow};
+`
