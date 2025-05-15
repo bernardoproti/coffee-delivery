@@ -1,28 +1,40 @@
-import { AdressInput } from '../../Form/AdressInput'
-import { CheckoutFormContainer, PaymentContainer } from './styles'
+import { MapPin } from 'phosphor-react'
+import { TextInput } from '../../Form/TextInput'
+import {
+  AdressFormContainer, AdressInfoContainer, AdressTitleContainer,
+  CheckoutFormContainer, UserAdressContainer, UserPaymentMethodContainer,
+} from './styles'
 
 export function Checkout() {
   return (
-    <>
-      <CheckoutFormContainer>
-        <PaymentContainer>
-          <header>
-            Complete seu pedido
-          </header>
-          <footer>
-            <form action="submit">
-              <AdressInput placeholder="CEP" />
-              <AdressInput placeholder="Rua" />
-              <AdressInput placeholder="Número" />
-              <AdressInput placeholder="Complemento" />
-              <AdressInput placeholder="Bairro" />
-              <AdressInput placeholder="Cidade" />
-              <AdressInput placeholder="UF" />
-            </form>
-          </footer>
-        </PaymentContainer>
+    <CheckoutFormContainer>
+      <div>
+        <h1>Complete seu pedido</h1>
+        <UserAdressContainer>
+          <AdressInfoContainer>
+            <div>
+              <MapPin size={22} />
+            </div>
 
-      </CheckoutFormContainer>
-    </>
+            <AdressTitleContainer>
+              <h2>Endereço de Entrega</h2>
+              <span>Informe o endereço onde deseja receber seu pedido</span>
+            </AdressTitleContainer>
+          </AdressInfoContainer>
+          <AdressFormContainer>
+            <form action="submit">
+              <TextInput gridAreaName="cep" placeholder="CEP" />
+              <TextInput gridAreaName="street" placeholder="Rua" />
+              <TextInput gridAreaName="number" placeholder="Número" />
+              <TextInput gridAreaName="complement" placeholder="Complemento" />
+              <TextInput gridAreaName="neighborhood" placeholder="Bairro" />
+              <TextInput gridAreaName="city" placeholder="Cidade" />
+              <TextInput gridAreaName="state" placeholder="UF" />
+            </form>
+          </AdressFormContainer>
+        </UserAdressContainer>
+        <UserPaymentMethodContainer />
+      </div>
+    </CheckoutFormContainer>
   )
 }
