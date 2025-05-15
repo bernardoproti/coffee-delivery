@@ -11,12 +11,6 @@ export const CheckoutFormContainer = styled.div`
     color: ${props => props.theme['base-subtitle']};
     margin-bottom:.9375rem
   }
-
-  & div:first-child {
-    display: flex;
-    flex-direction: column;
-    gap: .75rem;
-  }
 `
 const BaseCard = styled.div`
   display: flex;
@@ -29,7 +23,9 @@ const BaseCard = styled.div`
   background: ${props => props.theme['base-card']};
 `
 
-export const UserAdressContainer = styled(BaseCard)``
+export const UserAdressContainer = styled(BaseCard)`
+  margin-bottom: .75rem;
+`
 
 export const AdressInfoContainer = styled.header`
   display: flex;
@@ -117,4 +113,9 @@ export const PaymentMethodActionContainer = styled.footer`
   & label{
     justify-content: flex-start;
   }
+`
+
+export const UserOrderSummaryContainer = styled(BaseCard)`
+  width: 28rem;
+  border-radius: 6px 44px 6px 44px;
 `

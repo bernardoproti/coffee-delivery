@@ -1,11 +1,14 @@
 import styled from 'styled-components'
+import { mixins } from '../../styles/mixins'
 
 export const Container = styled.div`
+  display: flex;
+  align-items: center;
+  
   padding: 8px;
   background-color: ${({ theme }) => theme['base-button']};
   border-radius: 6px;
 
-  display: flex;
   gap: 4px;
 
   button {
@@ -25,7 +28,8 @@ export const Container = styled.div`
   }
 
   span {
-    padding-top: 2px;
+    ${mixins.fonts.textM}
     color: ${({ theme }) => theme['base-title']};
+    padding-top: 2px;
   }
 `

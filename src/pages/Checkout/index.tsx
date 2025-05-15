@@ -4,9 +4,10 @@ import {
   CheckoutFormContainer, UserAdressContainer, AdressFormContainer,
   AdressInfoContainer, AdressTitleContainer, UserPaymentMethodContainer,
   PaymentMethodInfoContainer, PaymentMethodTitleContainer,
-  PaymentMethodActionContainer,
+  PaymentMethodActionContainer, UserOrderSummaryContainer,
 } from './styles'
 import { Button } from '../../Form/Button'
+import { Order } from './components/Order'
 
 export function Checkout() {
   return (
@@ -67,6 +68,9 @@ export function Checkout() {
       </div>
       <div>
         <h1>Cafés selecionados</h1>
+        <UserOrderSummaryContainer>
+          <Order />
+        </UserOrderSummaryContainer>
       </div>
     </CheckoutFormContainer>
   )
