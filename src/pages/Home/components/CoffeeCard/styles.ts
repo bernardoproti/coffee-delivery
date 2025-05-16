@@ -20,6 +20,11 @@ export const CoffeeCardDescriptionContainer = styled.div`
     flex-direction: column;
     gap: .75rem;
     margin: -1.25rem 0 1rem 0;
+
+    & div {
+      display: flex;
+      gap: .25rem;
+    }
   }
   & div:last-child {
     margin: 0 1.25rem;

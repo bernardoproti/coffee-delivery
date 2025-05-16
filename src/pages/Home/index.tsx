@@ -8,9 +8,12 @@ import {
 import { Coffee, Package, ShoppingCart, Timer } from 'phosphor-react'
 import { useTheme } from 'styled-components'
 import { CoffeeCard } from './components/CoffeeCard'
+import { useContext } from 'react'
+import { OrdersContext } from '../../contexts/OrdersContext'
 
 export function Home() {
   const theme = useTheme()
+  const { coffees } = useContext(OrdersContext)
 
   return (
     <>
@@ -68,12 +71,18 @@ export function Home() {
           <h1>Nossos cafés</h1>
         </header>
         <CoffesMenuContainer>
-          <CoffeeCard />
-          <CoffeeCard />
-          <CoffeeCard />
-          <CoffeeCard />
-          <CoffeeCard />
-          <CoffeeCard />
+          {coffees.map((coffee) => {
+            return (
+              <CoffeeCard
+                key={coffee.id}
+                name={coffee.name}
+                image={coffee.image}
+                types={coffee.types}
+                description={coffee.description}
+                price={coffee.price}
+              />
+            )
+          })}
         </CoffesMenuContainer>
       </CoffeesContainer>
     </>

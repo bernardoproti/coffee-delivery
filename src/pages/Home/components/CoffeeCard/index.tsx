@@ -1,4 +1,3 @@
-import espresso from '/images/coffees/espresso.svg'
 import {
   CoffeCardActionContainer, CoffeCardInfoContainer, CoffeeCardContainer,
   CoffeeCardDescriptionContainer, CoffeeCardDescriptionTypeContainer,
@@ -6,25 +5,42 @@ import {
 import { ShoppingCart } from 'phosphor-react'
 import { QuantityInput } from '../../../../Form/QuantityInput'
 
-export function CoffeeCard() {
+interface CoffeeCardProps {
+  name: string;
+  image: string;
+  types: string[];
+  description: string;
+  price: number;
+}
+
+export function CoffeeCard({
+  name, image, types, description, price,
+}: CoffeeCardProps) {
   return (
     <CoffeeCardContainer>
       <CoffeeCardDescriptionContainer>
         <div>
-          <img src={espresso} alt="Expresso Tradicional" />
-          <CoffeeCardDescriptionTypeContainer>
-            TRADICIONAL
-          </CoffeeCardDescriptionTypeContainer>
+          <img src={image} alt="Expresso Tradicional" />
+
+          <div>
+            {types.map((type, index) => {
+              return (
+                <CoffeeCardDescriptionTypeContainer key={index}>
+                  {type}
+                </CoffeeCardDescriptionTypeContainer>
+              )
+            })}
+          </div>
         </div>
         <div>
-          <h2>Expresso Tradicional</h2>
-          <span>O tradicional café feito com água quente e grãos moídos</span>
+          <h2>{name}</h2>
+          <span>{description}</span>
         </div>
       </CoffeeCardDescriptionContainer>
       <CoffeCardInfoContainer>
         <span>
           <span>R$</span>
-          <strong>9,90</strong>
+          <strong>{price}</strong>
         </span>
 
         <CoffeCardActionContainer>
