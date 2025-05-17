@@ -1,6 +1,8 @@
 import {
-  CoffeCardActionContainer, CoffeCardInfoContainer, CoffeeCardContainer,
-  CoffeeCardDescriptionContainer, CoffeeCardDescriptionTypeContainer,
+  CoffeCardActionContainer, CoffeCardInfoContainer,
+  CoffeCardShoppingCartContainer, CoffeCardTitleAndDescriptionContainer,
+  CoffeeCardContainer, CoffeeCardDescriptionContainer,
+  CoffeeCardDescriptionTypeContainer,
 } from './styles'
 import { ShoppingCart } from 'phosphor-react'
 import { QuantityInput } from '../../../../Form/QuantityInput'
@@ -32,10 +34,10 @@ export function CoffeeCard({
             })}
           </div>
         </div>
-        <div>
+        <CoffeCardTitleAndDescriptionContainer>
           <h2>{name}</h2>
           <span>{description}</span>
-        </div>
+        </CoffeCardTitleAndDescriptionContainer>
       </CoffeeCardDescriptionContainer>
       <CoffeCardInfoContainer>
         <span>
@@ -46,9 +48,9 @@ export function CoffeeCard({
         <CoffeCardActionContainer>
           <QuantityInput />
 
-          <button className="shopping-cart">
+          <CoffeCardShoppingCartContainer>
             <ShoppingCart size={22} weight="fill" />
-          </button>
+          </CoffeCardShoppingCartContainer>
         </CoffeCardActionContainer>
       </CoffeCardInfoContainer>
     </CoffeeCardContainer>

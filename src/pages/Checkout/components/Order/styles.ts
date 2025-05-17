@@ -24,10 +24,6 @@ export const OrderContainer = styled.div`
   & div:first-child { 
     display: flex;
   }
-
-  /* & + & {
-    margin-top: 3rem;
-  } */
 `
 
 export const OrderInfoContainer = styled.div`
