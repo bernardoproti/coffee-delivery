@@ -19,7 +19,7 @@ export const CoffeeCardDescriptionContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: .75rem;
-    margin: -1.25rem 0 1rem 0;
+    margin: -1.25rem 0 1rem 0;  
 
     & div {
       display: flex;
@@ -44,15 +44,11 @@ export const CoffeeCardDescriptionContainer = styled.div`
 `
 
 export const CoffeeCardDescriptionTypeContainer = styled.span`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
   padding: .25rem .4rem;
 
   border-radius: 100px;
-
-  ${mixins.fonts.tag}
+  
+  ${mixins.fonts.tag};
   color: ${props => props.theme['yellow-dark']};
   background: ${props => props.theme['yellow-light']};
 `
