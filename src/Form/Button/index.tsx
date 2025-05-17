@@ -7,10 +7,8 @@ interface ButtonProps {
 
 export function Button({ children }: ButtonProps) {
   return (
-    <>
-      <ButtonContainer>
-        {children}
-      </ButtonContainer>
-    </>
+    <ButtonContainer>
+      {children}
+    </ButtonContainer>
   )
 }

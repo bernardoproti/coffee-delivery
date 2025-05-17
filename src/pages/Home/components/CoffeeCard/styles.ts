@@ -91,8 +91,14 @@ export const CoffeCardShoppingCartContainer = styled.label`
   display: flex;
   align-items: center;
   color: ${props => props.theme['base-card']};
-  background-color: ${props => props.theme['purple-dark']};
+  background: ${props => props.theme['purple']};
 
   padding: .5rem;
   border-radius: 6px;
+
+  cursor: pointer;
+
+  &:hover {
+    background: ${props => props.theme['purple-dark']};
+  }
 `

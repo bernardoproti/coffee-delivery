@@ -75,6 +75,7 @@ export function Home() {
             return (
               <CoffeeCard
                 key={coffee.id}
+                id={coffee.id}
                 name={coffee.name}
                 image={coffee.image}
                 types={coffee.types}

@@ -151,4 +151,8 @@ export const CheckoutButtonContainer = styled.button`
   ${mixins.fonts.buttonG};
   color: ${props => props.theme.white};
   background: ${props => props.theme.yellow};
+
+  &:hover {
+    background: ${props => props.theme['yellow-dark']};
+  }
 `

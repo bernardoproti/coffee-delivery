@@ -17,6 +17,10 @@ export const ButtonContainer = styled.label`
 
   cursor: pointer;
 
+  &:hover {
+    background: ${props => props.theme['base-hover']};
+  }
+
   & span {
     ${mixins.fonts.buttonM};
     color: ${props => props.theme['base-text']};

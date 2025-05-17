@@ -21,6 +21,7 @@ export function Header() {
 
         <ShoppingCartNavLinkContainer to="/checkout">
           <ShoppingCart size={22} weight="fill" />
+          <span>0</span>
         </ShoppingCartNavLinkContainer>
       </HeaderInfoContainer>
     </HeaderContainer>

@@ -133,3 +133,5 @@ export const coffees = [
     price: '9,90',
   },
 ]
+
+export type coffeesType = typeof coffees
