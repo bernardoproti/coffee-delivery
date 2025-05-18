@@ -1,5 +1,5 @@
 import { MapPin, Timer, CurrencyDollar } from 'phosphor-react'
-import illustration from '/images/illustration.svg'
+import illustration from '/illustration.svg'
 import { useTheme } from 'styled-components'
 import {
   SucessOrderContainer, SucessOrderInfoContainer, SucessOrderTitleContainer,

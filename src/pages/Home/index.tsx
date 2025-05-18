@@ -1,4 +1,4 @@
-import coffeDeliveryImage from '../../assets/outdoor-image.svg'
+import coffeDeliveryImage from '/outdoor.svg'
 import heroBackground from '/bg.svg'
 
 import {

@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import { MapPin, ShoppingCart } from 'phosphor-react'
-import coffeDeliveryLogo from '../../assets/logo-image.svg'
+import coffeDeliveryLogo from '/logo.svg'
 import {
   HeaderContainer, HeaderInfoContainer, LocationContainer,
   ShoppingCartNavLinkContainer,
