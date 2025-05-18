@@ -74,8 +74,8 @@ export function Home() {
           {coffees.map((coffee) => {
             return (
               <CoffeeCard
-                key={coffee.id}
                 id={coffee.id}
+                key={coffee.id}
                 name={coffee.name}
                 image={coffee.image}
                 types={coffee.types}

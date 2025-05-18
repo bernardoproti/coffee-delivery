@@ -10,8 +10,42 @@ import {
 import { Button } from '../../Form/Button'
 import { Order } from './components/Order'
 import { NavLink } from 'react-router-dom'
+import { useContext } from 'react'
+import { OrdersContext } from '../../contexts/OrdersContext'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as zod from 'zod'
+import { useForm } from 'react-hook-form'
+
+type FormInputs = {
+  cep: number
+  street: string
+  number: string
+  complement: string
+  neighborhood: string
+  city: string
+  state: string
+}
+
+const newUserAdressValidationSchema = zod.object({
+  cep: zod.number({ invalid_type_error: 'Informe o CEP' }),
+  street: zod.string().min(1, 'Informe a rua'),
+  number: zod.string().min(1, 'Informe o número'),
+  complement: zod.string(),
+  neighborhood: zod.string().min(1, 'Informe o bairro'),
+  city: zod.string().min(1, 'Informe a cidade'),
+  state: zod.string().min(1, 'Informe a UF'),
+})
 
 export function Checkout() {
+  const { orders } = useContext(OrdersContext)
+  const { register, handleSubmit } = useForm<FormInputs>({
+    resolver: zodResolver(newUserAdressValidationSchema),
+  })
+
+  function handleNewUserAdress(data: object) {
+    console.log(data)
+  }
+
   return (
     <CheckoutFormContainer>
       <div>
@@ -28,18 +62,43 @@ export function Checkout() {
             </AdressTitleContainer>
           </AdressInfoContainer>
           <AdressFormContainer>
-            <form action="submit">
-              <TextInput gridAreaName="cep" placeholder="CEP" />
-              <TextInput gridAreaName="street" placeholder="Rua" />
+            <form
+              onSubmit={handleSubmit(handleNewUserAdress)}
+              id="order"
+              action="submit"
+            >
+              <TextInput
+                gridAreaName="cep"
+                placeholder="CEP"
+                {...register('cep')}
+              />
+              <TextInput
+                gridAreaName="street"
+                placeholder="Rua"
+                {...register('street')}
+              />
               <TextInput gridAreaName="number" placeholder="Número" />
               <TextInput
                 gridAreaName="complement"
                 placeholder="Complemento"
                 optional
+                {...register('complement')}
               />
-              <TextInput gridAreaName="neighborhood" placeholder="Bairro" />
-              <TextInput gridAreaName="city" placeholder="Cidade" />
-              <TextInput gridAreaName="state" placeholder="UF" />
+              <TextInput
+                gridAreaName="neighborhood"
+                placeholder="Bairro"
+                {...register('neighborhood')}
+              />
+              <TextInput
+                gridAreaName="city"
+                placeholder="Cidade"
+                {...register('city')}
+              />
+              <TextInput
+                gridAreaName="state"
+                placeholder="UF"
+                {...register('state')}
+              />
             </form>
           </AdressFormContainer>
         </UserAdressContainer>
@@ -75,27 +134,35 @@ export function Checkout() {
       <div>
         <h1>Cafés selecionados</h1>
         <UserOrderSummaryContainer>
-          <Order />
-          <Order />
-          <Order />
+          {orders.map(order => {
+            return (
+              <Order
+                key={order.id}
+                id={order.id}
+                image={order.image}
+                name={order.name}
+                quantity={order.quantity}
+              />
+            )
+          })}
 
           <UserOrderSummaryPrice>
             <div>
               <span>Total de itens</span>
-              <span>R$ 29,70</span>
+              <span>R$ 0,00</span>
             </div>
             <div>
               <span>Entrega</span>
-              <span>R$ 3,50</span>
+              <span>R$ 0,00</span>
             </div>
             <div>
               <span>Total</span>
-              <span>R$ 33,20</span>
+              <span>R$ 0,00</span>
             </div>
           </UserOrderSummaryPrice>
 
           <NavLink to="/sucess">
-            <CheckoutButtonContainer>
+            <CheckoutButtonContainer type="submit" form="order">
               CONFIRMAR PEDIDO
             </CheckoutButtonContainer>
           </NavLink>

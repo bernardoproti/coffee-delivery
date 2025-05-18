@@ -1,25 +1,33 @@
 import { Trash } from 'phosphor-react'
-import espresso from '/images/coffees/espresso.svg'
 import { QuantityInput } from '../../../../Form/QuantityInput'
 import { Button } from '../../../../Form/Button'
 import {
   OrderContainer, OrderInfoContainer, OrderActionContainer,
   OrderPriceContainer,
 } from './styles'
+import type { OrderItem } from '../../../../reducers/orders/reducer'
+import { useContext } from 'react'
+import { OrdersContext } from '../../../../contexts/OrdersContext'
 
-export function Order() {
+export function Order({ id, image, name, quantity }: OrderItem) {
+  const { removeOrder } = useContext(OrdersContext)
+
+  function handleRemoveOrder() {
+    removeOrder(id)
+  }
+
   return (
     <OrderContainer>
       <div>
-        <img src={espresso} alt="Expresso Tradicional" />
+        <img src={image} alt={name} />
 
         <OrderInfoContainer>
-          <span>Expresso Tradicional</span>
+          <span>{name}</span>
 
           <OrderActionContainer>
-            <QuantityInput />
+            <QuantityInput quantity={quantity} />
 
-            <Button>
+            <Button onClick={handleRemoveOrder}>
               <Trash />
               <span>REMOVER</span>
             </Button>

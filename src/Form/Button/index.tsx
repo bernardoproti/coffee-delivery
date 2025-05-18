@@ -1,13 +1,14 @@
-import type { ReactNode } from 'react'
+import type { ReactNode, MouseEventHandler } from 'react'
 import { ButtonContainer } from './styles'
 
 interface ButtonProps {
-  children: ReactNode;
+  children: ReactNode
+  onClick?: MouseEventHandler<HTMLLabelElement>
 }
 
-export function Button({ children }: ButtonProps) {
+export function Button({ children, onClick }: ButtonProps) {
   return (
-    <ButtonContainer>
+    <ButtonContainer onClick={onClick}>
       {children}
     </ButtonContainer>
   )

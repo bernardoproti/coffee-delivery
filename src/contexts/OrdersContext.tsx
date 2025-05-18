@@ -1,8 +1,16 @@
-import { createContext, type ReactNode } from 'react'
+import { createContext, useReducer, type ReactNode } from 'react'
 import { coffees, type CoffeesType } from './Coffees'
+import type { OrderItem } from '../reducers/orders/reducer'
+import { ordersReducer } from '../reducers/orders/reducer'
+import {
+  addNewOrderAction, removeOrderAction,
+} from '../reducers/orders/actions'
 
 interface OrdersContextType {
   coffees: CoffeesType;
+  orders: OrderItem[];
+  addNewOrder: (newOrder: OrderItem) => void;
+  removeOrder: (orderId: number) => void;
 }
 
 interface OrdersContextProviderProps {
@@ -11,11 +19,24 @@ interface OrdersContextProviderProps {
 
 export const OrdersContext = createContext({} as OrdersContextType)
 
-export function OrdersContextProvider(
-  { children }: OrdersContextProviderProps,
-) {
+export function OrdersContextProvider({
+  children,
+}: OrdersContextProviderProps) {
+  const [orders, dispatch] = useReducer(ordersReducer, [])
+
+  function addNewOrder(newOrder: OrderItem) {
+    dispatch(addNewOrderAction(newOrder))
+  }
+
+  function removeOrder(orderId: number) {
+    dispatch(removeOrderAction(orderId))
+  }
+
   return (
-    <OrdersContext.Provider value={{ coffees }}>
+    <OrdersContext.Provider value={{
+      coffees, orders, addNewOrder, removeOrder,
+    }}
+    >
       {children}
     </OrdersContext.Provider>
   )

@@ -5,8 +5,12 @@ import {
   HeaderContainer, HeaderInfoContainer, LocationContainer,
   ShoppingCartNavLinkContainer,
 } from './styles'
+import { OrdersContext } from '../../contexts/OrdersContext'
+import { useContext } from 'react'
 
 export function Header() {
+  const { orders } = useContext(OrdersContext)
+
   return (
     <HeaderContainer>
       <NavLink to="/">
@@ -21,7 +25,11 @@ export function Header() {
 
         <ShoppingCartNavLinkContainer to="/checkout">
           <ShoppingCart size={22} weight="fill" />
-          <span>0</span>
+          {
+            orders.length > 0
+              ? <span>{orders.length}</span>
+              : null
+          }
         </ShoppingCartNavLinkContainer>
       </HeaderInfoContainer>
     </HeaderContainer>

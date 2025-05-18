@@ -6,9 +6,12 @@ import {
 } from './styles'
 import { ShoppingCart } from 'phosphor-react'
 import { QuantityInput } from '../../../../Form/QuantityInput'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import type { OrderItem } from '../../../../reducers/orders/reducer'
+import { OrdersContext } from '../../../../contexts/OrdersContext'
 
 interface CoffeeCardProps {
+  id: number;
   name: string;
   image: string;
   types: string[];
@@ -17,9 +20,21 @@ interface CoffeeCardProps {
 }
 
 export function CoffeeCard({
-  name, image, types, description, price,
+  id, name, image, types, description, price,
 }: CoffeeCardProps) {
   const [quantity, setQuantity] = useState(1)
+  const { addNewOrder } = useContext(OrdersContext)
+
+  function handleNewOrder() {
+    const newOrder: OrderItem = {
+      id,
+      image,
+      name,
+      quantity,
+    }
+
+    addNewOrder(newOrder)
+  }
 
   function handleIncrementQuantity() {
     setQuantity(state => state + 1)
@@ -65,7 +80,7 @@ export function CoffeeCard({
             decrementQuantity={handleDecrementQuantity}
           />
 
-          <CoffeCardShoppingCartContainer>
+          <CoffeCardShoppingCartContainer onClick={(handleNewOrder)}>
             <ShoppingCart size={22} weight="fill" />
           </CoffeCardShoppingCartContainer>
         </CoffeCardActionContainer>
