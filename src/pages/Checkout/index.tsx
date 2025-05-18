@@ -32,7 +32,11 @@ export function Checkout() {
               <TextInput gridAreaName="cep" placeholder="CEP" />
               <TextInput gridAreaName="street" placeholder="Rua" />
               <TextInput gridAreaName="number" placeholder="Número" />
-              <TextInput gridAreaName="complement" placeholder="Complemento" />
+              <TextInput
+                gridAreaName="complement"
+                placeholder="Complemento"
+                optional
+              />
               <TextInput gridAreaName="neighborhood" placeholder="Bairro" />
               <TextInput gridAreaName="city" placeholder="Cidade" />
               <TextInput gridAreaName="state" placeholder="UF" />

@@ -1,17 +1,18 @@
 import type { InputHTMLAttributes } from 'react'
-import { TextInputContainer } from './styles'
+import { OptinalTag, TextInputContainer } from './styles'
 
 interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
-  gridAreaName: string
-  placeholder: string
+  gridAreaName: string;
+  optional?: boolean;
 }
 
 export function TextInput({
-  gridAreaName, placeholder, ...rest
+  gridAreaName, optional, ...rest
 }: TextInputProps) {
   return (
     <TextInputContainer $gridAreaName={gridAreaName}>
-      <input placeholder={placeholder} {...rest} />
+      <input {...rest} />
+      {optional && <OptinalTag>Opcional</OptinalTag>}
     </TextInputContainer>
   )
 }
