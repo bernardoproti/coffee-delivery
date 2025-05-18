@@ -134,4 +134,4 @@ export const coffees = [
   },
 ]
 
-export type coffeesType = typeof coffees
+export type CoffeesType = typeof coffees

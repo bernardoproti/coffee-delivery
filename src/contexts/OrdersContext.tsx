@@ -1,8 +1,8 @@
 import { createContext, type ReactNode } from 'react'
-import { coffees, type coffeesType } from './Coffees'
+import { coffees, type CoffeesType } from './Coffees'
 
 interface OrdersContextType {
-  coffees: coffeesType;
+  coffees: CoffeesType;
 }
 
 interface OrdersContextProviderProps {
