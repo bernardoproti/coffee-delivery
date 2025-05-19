@@ -9,7 +9,7 @@ import {
 } from './styles'
 import { Button } from '../../Form/Button'
 import { Order } from './components/Order'
-import { NavLink } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
 import { OrdersContext } from '../../contexts/OrdersContext'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -17,7 +17,7 @@ import * as zod from 'zod'
 import { useForm } from 'react-hook-form'
 
 type FormInputs = {
-  cep: number
+  cep: string
   street: string
   number: string
   complement: string
@@ -27,7 +27,7 @@ type FormInputs = {
 }
 
 const newUserAdressValidationSchema = zod.object({
-  cep: zod.number({ invalid_type_error: 'Informe o CEP' }),
+  cep: zod.string().min(1, 'Informe o CEP'),
   street: zod.string().min(1, 'Informe a rua'),
   number: zod.string().min(1, 'Informe o número'),
   complement: zod.string(),
@@ -41,9 +41,11 @@ export function Checkout() {
   const { register, handleSubmit } = useForm<FormInputs>({
     resolver: zodResolver(newUserAdressValidationSchema),
   })
+  const navigate = useNavigate()
 
   function handleNewUserAdress(data: object) {
     console.log(data)
+    navigate('/sucess')
   }
 
   return (
@@ -65,7 +67,6 @@ export function Checkout() {
             <form
               onSubmit={handleSubmit(handleNewUserAdress)}
               id="order"
-              action="submit"
             >
               <TextInput
                 gridAreaName="cep"
@@ -77,7 +78,11 @@ export function Checkout() {
                 placeholder="Rua"
                 {...register('street')}
               />
-              <TextInput gridAreaName="number" placeholder="Número" />
+              <TextInput
+                gridAreaName="number"
+                placeholder="Número"
+                {...register('number')}
+              />
               <TextInput
                 gridAreaName="complement"
                 placeholder="Complemento"
@@ -161,11 +166,9 @@ export function Checkout() {
             </div>
           </UserOrderSummaryPrice>
 
-          <NavLink to="/sucess">
-            <CheckoutButtonContainer type="submit" form="order">
-              CONFIRMAR PEDIDO
-            </CheckoutButtonContainer>
-          </NavLink>
+          <CheckoutButtonContainer type="submit" form="order">
+            CONFIRMAR PEDIDO
+          </CheckoutButtonContainer>
         </UserOrderSummaryContainer>
       </div>
     </CheckoutFormContainer>
