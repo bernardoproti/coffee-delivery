@@ -1,14 +1,14 @@
+import { useContext, useEffect, useState } from 'react'
+import { OrdersContext } from '../../../../contexts/OrdersContext'
+import type { OrderItem } from '../../../../reducers/orders/reducer'
+import { QuantityInput } from '../../../../Form/QuantityInput'
+import { ShoppingCart, CheckFat } from '@phosphor-icons/react'
 import {
   CoffeCardActionContainer, CoffeCardInfoContainer,
-  CoffeCardShoppingCartContainer, CoffeCardTitleAndDescriptionContainer,
+  CoffeCardButtonContainer, CoffeCardTitleAndDescriptionContainer,
   CoffeeCardContainer, CoffeeCardDescriptionContainer,
   CoffeeCardDescriptionTypeContainer,
 } from './styles'
-import { ShoppingCart } from 'phosphor-react'
-import { QuantityInput } from '../../../../Form/QuantityInput'
-import { useContext, useState } from 'react'
-import type { OrderItem } from '../../../../reducers/orders/reducer'
-import { OrdersContext } from '../../../../contexts/OrdersContext'
 
 interface CoffeeCardProps {
   id: number;
@@ -23,6 +23,7 @@ export function CoffeeCard({
   id, name, image, types, description, price,
 }: CoffeeCardProps) {
   const [quantity, setQuantity] = useState(1)
+  const [orderAdded, setOrderAdded] = useState(false)
   const { addNewOrder } = useContext(OrdersContext)
 
   function handleNewOrder() {
@@ -34,6 +35,7 @@ export function CoffeeCard({
     }
 
     addNewOrder(newOrder)
+    setOrderAdded(true)
   }
 
   function handleIncrementQuantity() {
@@ -45,6 +47,16 @@ export function CoffeeCard({
       setQuantity(state => state - 1)
     }
   }
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setOrderAdded(false)
+    }, 1000)
+
+    return () => {
+      clearInterval(interval)
+    }
+  }, [orderAdded, setOrderAdded])
 
   return (
     <CoffeeCardContainer>
@@ -80,9 +92,15 @@ export function CoffeeCard({
             decrementQuantity={handleDecrementQuantity}
           />
 
-          <CoffeCardShoppingCartContainer onClick={(handleNewOrder)}>
-            <ShoppingCart size={22} weight="fill" />
-          </CoffeCardShoppingCartContainer>
+          <CoffeCardButtonContainer
+            aria-disabled={orderAdded}
+            onClick={(handleNewOrder)}
+            $orderAdded={orderAdded}
+          >
+            {orderAdded
+              ? <CheckFat size={22} weight="fill" />
+              : <ShoppingCart size={22} weight="fill" />}
+          </CoffeCardButtonContainer>
         </CoffeCardActionContainer>
       </CoffeCardInfoContainer>
     </CoffeeCardContainer>

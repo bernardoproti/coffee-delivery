@@ -23,7 +23,12 @@ export function Header() {
           <span>Espírito Santo, ES</span>
         </LocationContainer>
 
-        <ShoppingCartNavLinkContainer to="/checkout">
+        <ShoppingCartNavLinkContainer to={
+          orders.length === 0
+            ? '/'
+            : '/checkout'
+        }
+        >
           <ShoppingCart size={22} weight="fill" />
           {
             orders.length > 0

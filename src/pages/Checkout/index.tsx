@@ -158,7 +158,7 @@ export function Checkout() {
             </div>
             <div>
               <span>Entrega</span>
-              <span>R$ 0,00</span>
+              <span>R$ 3,50</span>
             </div>
             <div>
               <span>Total</span>

@@ -87,18 +87,28 @@ export const CoffeCardActionContainer = styled.div`
   gap: .5rem;
 `
 
-export const CoffeCardShoppingCartContainer = styled.label`
+export const CoffeCardButtonContainer = styled.label<{ $orderAdded?: boolean }>`
   display: flex;
   align-items: center;
   color: ${props => props.theme['base-card']};
-  background: ${props => props.theme['purple-dark']};
+  background: ${
+    props => props.$orderAdded
+    ? props.theme['yellow-dark']
+    : props.theme['purple-dark']
+  };
 
   padding: .5rem;
   border-radius: 6px;
 
   cursor: pointer;
 
+  transition: background-color .5s;
+
   &:hover {
-    background: ${props => props.theme['purple']};
+    background: ${
+      props => props.$orderAdded
+      ? props.theme.yellow
+      : props.theme.purple
+    };
   }
 `
