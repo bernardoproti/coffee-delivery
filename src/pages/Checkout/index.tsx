@@ -46,7 +46,7 @@ const newUserAdressValidationSchema = zod.object({
 })
 
 export function Checkout() {
-  const { orders } = useContext(OrdersContext)
+  const { orders, setOrderInfo } = useContext(OrdersContext)
   const {
     register, handleSubmit, watch, setValue, formState: { errors },
   } = useForm<FormInputs>({
@@ -55,7 +55,6 @@ export function Checkout() {
   const navigate = useNavigate()
 
   const selectedPaymentMethod = watch('paymentMethod')
-  console.log(selectedPaymentMethod)
 
   const ordersTotalPrice = orders.reduce((total, order) => {
     const price = parseFloat(order.price.replace(',', '.'))
@@ -63,7 +62,18 @@ export function Checkout() {
   }, 0)
   const totalPrice = ordersTotalPrice + 3.50
 
-  function handleNewUserAdress(data: object) {
+  function handleNewUserAdress(data: FormInputs) {
+    const { street, number, city, state, paymentMethod } = data
+
+    const newOrderInfo = {
+      street,
+      number,
+      city,
+      state,
+      paymentMethod,
+    }
+    setOrderInfo(newOrderInfo)
+
     navigate('/sucess')
   }
 

@@ -1,4 +1,6 @@
-import { createContext, useReducer, type ReactNode } from 'react'
+import {
+  createContext, useReducer, useState, useEffect, type ReactNode,
+} from 'react'
 import { coffees, type CoffeesType } from './Coffees'
 import type { OrderItem } from '../reducers/orders/reducer'
 import { ordersReducer } from '../reducers/orders/reducer'
@@ -9,9 +11,19 @@ import {
   decrementOrderQuantiyAction,
 } from '../reducers/orders/actions'
 
+interface OrderUserInfo {
+  street: string;
+  number: string;
+  city: string;
+  state: string;
+  paymentMethod: string;
+}
+
 interface OrdersContextType {
   coffees: CoffeesType;
   orders: OrderItem[];
+  orderInfo: OrderUserInfo;
+  setOrderInfo: (info: OrderUserInfo) => void;
   addNewOrder: (newOrder: OrderItem) => void;
   removeOrder: (orderId: number) => void;
   incrementOrder: (orderId: number) => void;
@@ -27,7 +39,36 @@ export const OrdersContext = createContext({} as OrdersContextType)
 export function OrdersContextProvider({
   children,
 }: OrdersContextProviderProps) {
-  const [orders, dispatch] = useReducer(ordersReducer, [])
+  const [orders, dispatch] = useReducer(
+    ordersReducer,
+    [],
+    (state) => {
+      const storedStateAsJSON = localStorage.getItem(
+        '@coffee-delivery:orders-1.0.0',
+      )
+
+      if (storedStateAsJSON) {
+        return JSON.parse(storedStateAsJSON)
+      }
+
+      return state
+    },
+  )
+  const [orderInfo, setOrderInfo] = useState<OrderUserInfo>({
+    street: '',
+    number: '',
+    city: '',
+    state: '',
+    paymentMethod: '',
+  })
+
+  useEffect(() => {
+    if (orders) {
+      const stateJSON = JSON.stringify(orders)
+
+      localStorage.setItem('@coffee-delivery:orders-1.0.0', stateJSON)
+    }
+  }, [orders])
 
   function addNewOrder(newOrder: OrderItem) {
     dispatch(addNewOrderAction(newOrder))
@@ -49,6 +90,8 @@ export function OrdersContextProvider({
     <OrdersContext.Provider value={{
       coffees,
       orders,
+      orderInfo,
+      setOrderInfo,
       addNewOrder,
       removeOrder,
       incrementOrder,

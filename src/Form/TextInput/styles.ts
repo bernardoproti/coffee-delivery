@@ -38,9 +38,7 @@ export const OptinalTag = styled.span`
 
 export const ErrorTag = styled.span`
   ${mixins.fonts.textXS};
-  font-weight: bold;
-
   white-space: nowrap;
-
+  font-weight: 400;
   color: red;
 `

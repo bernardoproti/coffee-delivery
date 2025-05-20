@@ -5,8 +5,11 @@ import {
   SucessOrderContainer, SucessOrderInfoContainer, SucessOrderTitleContainer,
   SucessOrderUserInfoContainer,
 } from './styles'
+import { useContext } from 'react'
+import { OrdersContext } from '../../contexts/OrdersContext'
 
 export function Sucess() {
+  const { orderInfo } = useContext(OrdersContext)
   const theme = useTheme()
 
   return (
@@ -24,8 +27,15 @@ export function Sucess() {
                 style={{ backgroundColor: theme.purple }}
               />
               <div>
-                <span>Entrega em <strong>Rua Anjico, 97</strong></span>
-                <span>Serra - Espírito Santo, ES</span>
+                <span>
+                  {'Entrega em '}
+                  <strong>
+                    {orderInfo.street}, {orderInfo.number}
+                  </strong>
+                </span>
+                <span>
+                  {orderInfo.city} - Espírito Santo, {orderInfo.state}
+                </span>
               </div>
             </div>
             <div>
@@ -45,7 +55,15 @@ export function Sucess() {
               />
               <div>
                 <span>Pagamento na entrega</span>
-                <strong>Cartão de Crédito</strong>
+                <strong>
+                  {orderInfo.paymentMethod === 'credit'
+                    ? 'Cartão de crédito'
+                    : orderInfo.paymentMethod === 'debit'
+                      ? 'Cartão de débito'
+                      : orderInfo.paymentMethod === 'cash'
+                        ? 'Dinheiro'
+                        : ''}
+                </strong>
               </div>
             </div>
           </SucessOrderUserInfoContainer>
