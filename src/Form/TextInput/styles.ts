@@ -35,3 +35,12 @@ export const OptinalTag = styled.span`
   
   color: ${props => props.theme['base-label']}
 `
+
+export const ErrorTag = styled.span`
+  ${mixins.fonts.textXS};
+  font-weight: bold;
+
+  white-space: nowrap;
+
+  color: red;
+`

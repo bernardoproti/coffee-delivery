@@ -109,6 +109,7 @@ export const PaymentMethodActionContainer = styled.footer`
   display: flex;
   gap: .75rem;
   max-height: 3.1875rem;
+  width: 35rem;
 
   & label{
     justify-content: flex-start;
@@ -155,4 +156,10 @@ export const CheckoutButtonContainer = styled.button`
   &:hover {
     background: ${props => props.theme['yellow-dark']};
   }
+`
+
+export const PaymentErrorMessage = styled.span`
+  ${mixins.fonts.textXS};
+  font-weight: bold;
+  color: red;
 `

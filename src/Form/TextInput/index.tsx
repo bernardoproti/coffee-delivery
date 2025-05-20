@@ -1,18 +1,24 @@
 import type { InputHTMLAttributes } from 'react'
-import { OptinalTag, TextInputContainer } from './styles'
+import { ErrorTag, OptinalTag, TextInputContainer } from './styles'
 
 interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
   gridAreaName: string;
   optional?: boolean;
+  error?: {
+    message?: string;
+  }
 }
 
 export function TextInput({
-  gridAreaName, optional, ...rest
+  gridAreaName, optional = false, error, ...rest
 }: TextInputProps) {
   return (
     <TextInputContainer $gridAreaName={gridAreaName}>
       <input {...rest} />
       {optional && <OptinalTag>Opcional</OptinalTag>}
+      {error && error.message && (
+        <ErrorTag>{error.message}</ErrorTag>
+      )}
     </TextInputContainer>
   )
 }

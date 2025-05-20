@@ -16,6 +16,7 @@ import {
   PaymentMethodInfoContainer, PaymentMethodTitleContainer,
   PaymentMethodActionContainer, UserOrderSummaryContainer,
   UserOrderSummaryPrice, CheckoutButtonContainer,
+  PaymentErrorMessage,
 } from './styles'
 
 type FormInputs = {
@@ -26,6 +27,7 @@ type FormInputs = {
   neighborhood: string
   city: string
   state: string
+  paymentMethod: 'debit' | 'credit' | 'cash'
 }
 
 const newUserAdressValidationSchema = zod.object({
@@ -35,17 +37,25 @@ const newUserAdressValidationSchema = zod.object({
   complement: zod.string(),
   neighborhood: zod.string().min(1, 'Informe o bairro'),
   city: zod.string().min(1, 'Informe a cidade'),
-  state: zod.string().min(1, 'Informe a UF'),
+  state: zod.string().min(1, 'Informe o UF'),
+  paymentMethod: zod.enum(
+    ['debit', 'credit', 'cash'], {
+      message: 'Informe um método de pagamento',
+    },
+  ),
 })
 
 export function Checkout() {
   const { orders } = useContext(OrdersContext)
   const {
-    register, handleSubmit, formState: { errors },
+    register, handleSubmit, watch, setValue, formState: { errors },
   } = useForm<FormInputs>({
     resolver: zodResolver(newUserAdressValidationSchema),
   })
   const navigate = useNavigate()
+
+  const selectedPaymentMethod = watch('paymentMethod')
+  console.log(selectedPaymentMethod)
 
   const ordersTotalPrice = orders.reduce((total, order) => {
     const price = parseFloat(order.price.replace(',', '.'))
@@ -54,8 +64,6 @@ export function Checkout() {
   const totalPrice = ordersTotalPrice + 3.50
 
   function handleNewUserAdress(data: object) {
-    console.log('Chamei a função de envio do formulário.')
-    console.log('data', data)
     navigate('/sucess')
   }
 
@@ -88,32 +96,38 @@ export function Checkout() {
               <TextInput
                 gridAreaName="street"
                 placeholder="Rua"
+                error={errors.street}
                 {...register('street')}
               />
               <TextInput
                 gridAreaName="number"
                 placeholder="Número"
+                error={errors.number}
                 {...register('number')}
               />
               <TextInput
                 gridAreaName="complement"
                 placeholder="Complemento"
                 optional
+                error={errors.complement}
                 {...register('complement')}
               />
               <TextInput
                 gridAreaName="neighborhood"
                 placeholder="Bairro"
+                error={errors.neighborhood}
                 {...register('neighborhood')}
               />
               <TextInput
                 gridAreaName="city"
                 placeholder="Cidade"
+                error={errors.city}
                 {...register('city')}
               />
               <TextInput
                 gridAreaName="state"
                 placeholder="UF"
+                error={errors.state}
                 {...register('state')}
               />
             </form>
@@ -133,19 +147,37 @@ export function Checkout() {
             </PaymentMethodTitleContainer>
           </PaymentMethodInfoContainer>
           <PaymentMethodActionContainer>
-            <Button>
+            <Button
+              isSelected={selectedPaymentMethod === 'credit'}
+              onClick={() => setValue('paymentMethod', 'credit')}
+            >
               <CreditCard />
               <span>CARTÃO DE CRÉDITO</span>
             </Button>
-            <Button>
+            <Button
+              isSelected={selectedPaymentMethod === 'debit'}
+              onClick={() => setValue('paymentMethod', 'debit')}
+            >
               <Bank />
               <span>CARTÃO DE DÉBITO</span>
             </Button>
-            <Button>
+            <Button
+              isSelected={selectedPaymentMethod === 'cash'}
+              onClick={() => setValue('paymentMethod', 'cash')}
+            >
               <Money />
               <span>DINHEIRO</span>
             </Button>
           </PaymentMethodActionContainer>
+          {
+              errors.paymentMethod
+                ? (
+                  <PaymentErrorMessage role="alert">
+                    {errors.paymentMethod.message}
+                  </PaymentErrorMessage>
+                  )
+                : null
+            }
         </UserPaymentMethodContainer>
       </div>
       <div>

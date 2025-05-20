@@ -102,7 +102,7 @@ export const CoffeCardButtonContainer = styled.label<{ $orderAdded?: boolean }>`
 
   cursor: pointer;
 
-  transition: background-color .5s;
+  transition: background-color .25s;
 
   &:hover {
     background: ${
