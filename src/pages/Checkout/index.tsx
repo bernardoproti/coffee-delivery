@@ -1,5 +1,13 @@
-import { Bank, CreditCard, CurrencyDollar, MapPin, Money } from 'phosphor-react'
+import { useContext } from 'react'
+import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
+import { Order } from './components/Order'
 import { TextInput } from '../../Form/TextInput'
+import { Button } from '../../Form/Button'
+import { OrdersContext } from '../../contexts/OrdersContext'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as zod from 'zod'
+import { Bank, CreditCard, CurrencyDollar, MapPin, Money } from 'phosphor-react'
 import {
   CheckoutFormContainer, UserAdressContainer, AdressFormContainer,
   AdressInfoContainer, AdressTitleContainer, UserPaymentMethodContainer,
@@ -7,14 +15,6 @@ import {
   PaymentMethodActionContainer, UserOrderSummaryContainer,
   UserOrderSummaryPrice, CheckoutButtonContainer,
 } from './styles'
-import { Button } from '../../Form/Button'
-import { Order } from './components/Order'
-import { useNavigate } from 'react-router-dom'
-import { useContext } from 'react'
-import { OrdersContext } from '../../contexts/OrdersContext'
-import { zodResolver } from '@hookform/resolvers/zod'
-import * as zod from 'zod'
-import { useForm } from 'react-hook-form'
 
 type FormInputs = {
   cep: string
@@ -38,13 +38,22 @@ const newUserAdressValidationSchema = zod.object({
 
 export function Checkout() {
   const { orders } = useContext(OrdersContext)
-  const { register, handleSubmit } = useForm<FormInputs>({
+  const {
+    register, handleSubmit, formState: { errors },
+  } = useForm<FormInputs>({
     resolver: zodResolver(newUserAdressValidationSchema),
   })
   const navigate = useNavigate()
 
+  const ordersTotalPrice = orders.reduce((total, order) => {
+    const price = parseFloat(order.price.replace(',', '.'))
+    return total + price * order.quantity
+  }, 0)
+  const totalPrice = ordersTotalPrice + 3.50
+
   function handleNewUserAdress(data: object) {
-    console.log(data)
+    console.log('Chamei a função de envio do formulário.')
+    console.log('data', data)
     navigate('/sucess')
   }
 
@@ -71,6 +80,7 @@ export function Checkout() {
               <TextInput
                 gridAreaName="cep"
                 placeholder="CEP"
+                error={errors.cep}
                 {...register('cep')}
               />
               <TextInput
@@ -146,6 +156,7 @@ export function Checkout() {
                 id={order.id}
                 image={order.image}
                 name={order.name}
+                price={order.price}
                 quantity={order.quantity}
               />
             )
@@ -154,7 +165,12 @@ export function Checkout() {
           <UserOrderSummaryPrice>
             <div>
               <span>Total de itens</span>
-              <span>R$ 0,00</span>
+              <span>{
+                ordersTotalPrice.toLocaleString(
+                  'pt-BR', { style: 'currency', currency: 'BRL' },
+                )
+              }
+              </span>
             </div>
             <div>
               <span>Entrega</span>
@@ -162,7 +178,12 @@ export function Checkout() {
             </div>
             <div>
               <span>Total</span>
-              <span>R$ 0,00</span>
+              <span>{
+                totalPrice.toLocaleString(
+                  'pt-BR', { style: 'currency', currency: 'BRL' },
+                )
+              }
+              </span>
             </div>
           </UserOrderSummaryPrice>
 

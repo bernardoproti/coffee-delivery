@@ -31,11 +31,13 @@ export function CoffeeCard({
       id,
       image,
       name,
+      price,
       quantity,
     }
 
     addNewOrder(newOrder)
     setOrderAdded(true)
+    setQuantity(1)
   }
 
   function handleIncrementQuantity() {

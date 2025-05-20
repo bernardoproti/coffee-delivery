@@ -10,7 +10,11 @@ import { useContext } from 'react'
 import { OrdersContext } from '../../../../contexts/OrdersContext'
 
 export function Order({ id, image, name, quantity }: OrderItem) {
-  const { removeOrder } = useContext(OrdersContext)
+  const {
+    removeOrder,
+    incrementOrder,
+    decrementOrder,
+  } = useContext(OrdersContext)
 
   function handleRemoveOrder() {
     removeOrder(id)
@@ -25,7 +29,11 @@ export function Order({ id, image, name, quantity }: OrderItem) {
           <span>{name}</span>
 
           <OrderActionContainer>
-            <QuantityInput quantity={quantity} />
+            <QuantityInput
+              quantity={quantity}
+              incrementQuantity={() => incrementOrder(id)}
+              decrementQuantity={() => decrementOrder(id)}
+            />
 
             <Button onClick={handleRemoveOrder}>
               <Trash />

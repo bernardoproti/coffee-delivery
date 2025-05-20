@@ -3,7 +3,10 @@ import { coffees, type CoffeesType } from './Coffees'
 import type { OrderItem } from '../reducers/orders/reducer'
 import { ordersReducer } from '../reducers/orders/reducer'
 import {
-  addNewOrderAction, removeOrderAction,
+  addNewOrderAction,
+  removeOrderAction,
+  incrementOrderQuantiyAction,
+  decrementOrderQuantiyAction,
 } from '../reducers/orders/actions'
 
 interface OrdersContextType {
@@ -11,6 +14,8 @@ interface OrdersContextType {
   orders: OrderItem[];
   addNewOrder: (newOrder: OrderItem) => void;
   removeOrder: (orderId: number) => void;
+  incrementOrder: (orderId: number) => void;
+  decrementOrder: (orderId: number) => void;
 }
 
 interface OrdersContextProviderProps {
@@ -32,9 +37,22 @@ export function OrdersContextProvider({
     dispatch(removeOrderAction(orderId))
   }
 
+  function incrementOrder(orderId: number) {
+    dispatch(incrementOrderQuantiyAction(orderId))
+  }
+
+  function decrementOrder(orderId: number) {
+    dispatch(decrementOrderQuantiyAction(orderId))
+  }
+
   return (
     <OrdersContext.Provider value={{
-      coffees, orders, addNewOrder, removeOrder,
+      coffees,
+      orders,
+      addNewOrder,
+      removeOrder,
+      incrementOrder,
+      decrementOrder,
     }}
     >
       {children}

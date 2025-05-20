@@ -5,6 +5,7 @@ export interface OrderItem {
   id: number;
   image: string;
   name: string;
+  price: string;
   quantity: number;
 }
 
@@ -28,6 +29,26 @@ export function ordersReducer(state: OrderItem[], action: Actions) {
           (order) => order.id === action.payload.orderId,
         )
         draft.splice(orderToRemoveId, 1)
+      })
+    case ActionTypes.INCREMENT_ORDER_QUANTITY:
+      return produce(state, (draft) => {
+        const orderToIncrement = draft.find(
+          (order) => order.id === action.payload.orderId,
+        )
+
+        if (orderToIncrement?.id) {
+          orderToIncrement.quantity += 1
+        }
+      })
+    case ActionTypes.DECREMENT_ORDER_QUANTITY:
+      return produce(state, (draft) => {
+        const orderToDecrement = draft.find(
+          (order) => order.id === action.payload.orderId,
+        )
+
+        if (orderToDecrement?.id && orderToDecrement.quantity > 1) {
+          orderToDecrement.quantity -= 1
+        }
       })
     default: return state
   }
