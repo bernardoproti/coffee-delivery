@@ -7,7 +7,9 @@ import { Button } from '../../Form/Button'
 import { OrdersContext } from '../../contexts/OrdersContext'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
-import { Bank, CreditCard, CurrencyDollar, MapPin, Money } from 'phosphor-react'
+import {
+  Bank, CreditCard, CurrencyDollar, MapPin, Money,
+} from '@phosphor-icons/react'
 import {
   CheckoutFormContainer, UserAdressContainer, AdressFormContainer,
   AdressInfoContainer, AdressTitleContainer, UserPaymentMethodContainer,

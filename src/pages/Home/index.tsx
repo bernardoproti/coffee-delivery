@@ -5,7 +5,7 @@ import {
   CoffeesContainer, CoffesMenuContainer, DescriptionContainer,
   OutdoorContainer, TitleContainer,
 } from './styles'
-import { Coffee, Package, ShoppingCart, Timer } from 'phosphor-react'
+import { Coffee, Package, ShoppingCart, Timer } from '@phosphor-icons/react'
 import { useTheme } from 'styled-components'
 import { CoffeeCard } from './components/CoffeeCard'
 import { useContext } from 'react'
